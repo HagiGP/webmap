@@ -51,12 +51,12 @@
     <div id="sidebar">
         <h3 onclick="toggleLocationList()">主要サイト</h3>
         <ul id="location-list">
-            <li><button onclick="jumpTo([34.40808, 131.39039], 14)">萩・明倫学舎</button></li>
-            <li><button onclick="jumpTo([34.41396, 131.39600], 14)">萩城下町</button></li>
-            <li><button onclick="jumpTo([34.43374, 131.43463], 14)">笠山</button></li>
-            <li><button onclick="jumpTo([34.66473, 131.58458], 14)">須佐ホルンフェルス</button></li>
-            <li><button onclick="jumpTo([34.36686, 131.44412], 14)">畳ヶ淵</button></li>
-            <li><button onclick="jumpTo([34.27641, 131.51446], 14)">長門峡</button></li>
+            <li><button onclick="jumpTo([34.409220, 131.399789], 14)">萩・明倫学舎</button></li>
+            <li><button onclick="jumpTo([34.413345, 131.393995], 14)">萩城下町</button></li>
+            <li><button onclick="jumpTo([34.449591, 131.401935], 14)">笠山</button></li>
+            <li><button onclick="jumpTo([34.647808, 131.596556], 14)">須佐ホルンフェルス</button></li>
+            <li><button onclick="jumpTo([34.544724, 131.674104], 14)">畳ヶ淵</button></li>
+            <li><button onclick="jumpTo([34.320117, 131.565742], 14)">長門峡</button></li>
         </ul>
     </div>
 
@@ -64,7 +64,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         // 地図を初期化（萩・明倫学舎を中心に表示）
-        var hagimeirinsya = [34.40808, 131.39039]; // 萩・明倫学舎の座標
+        var hagimeirinsya = [34.409220, 131.399789]; // 萩・明倫学舎の座標
         var map = L.map('map', { center: hagimeirinsya, zoom: 14 });
 
         // baseUrlを生成
