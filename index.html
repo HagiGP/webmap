@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>萩ジオパークマップ</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 100vh; } /* 地図を画面全体に表示 */
+        #sidebar {
+            position: absolute;
+            top: 10px; /* 上から10px */
+            left: 10px; /* 左端に配置 */
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        #sidebar h3 {
+            margin: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        #location-list {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+        }
+        #location-list li {
+            margin: 5px 0;
+        }
+        #location-list button {
+            width: 100%;
+            padding: 5px;
+            background: #c30d23;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #location-list button:hover {
+            background: #c30d23;
+        }
+    </style>
+</head>
+<body>
+    <!-- 地図を表示する要素 -->
+    <div id="map"></div>
+
+    <!-- 折りたたみ可能なボタンリスト -->
+    <div id="sidebar">
+        <h3 onclick="toggleLocationList()">主要サイト</h3>
+        <ul id="location-list">
+            <li><button onclick="jumpTo([34.40808, 131.39039], 14)">萩・明倫学舎</button></li>
+            <li><button onclick="jumpTo([34.41396, 131.39600], 14)">萩城下町</button></li>
+            <li><button onclick="jumpTo([34.43374, 131.43463], 14)">笠山</button></li>
+            <li><button onclick="jumpTo([34.66473, 131.58458], 14)">須佐ホルンフェルス</button></li>
+            <li><button onclick="jumpTo([34.36686, 131.44412], 14)">畳ヶ淵</button></li>
+            <li><button onclick="jumpTo([34.27641, 131.51446], 14)">長門峡</button></li>
+        </ul>
+    </div>
+
+    <!-- Leaflet.jsのスクリプト -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // 地図を初期化（萩・明倫学舎を中心に表示）
+        var hagimeirinsya = [34.40808, 131.39039]; // 萩・明倫学舎の座標
+        var map = L.map('map', { center: hagimeirinsya, zoom: 14 });
+
+        // baseUrlを生成
+        var baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+
+        // タイルマップを追加
+        L.tileLayer(baseUrl + '/tiles/{z}/{x}/{y}.png', {
+            maxZoom: 14,
+            minZoom: 11,
+            attribution: '© Your Map Provider'
+        }).addTo(map);
+
+        // 右下にスケールを追加
+        L.control.scale({ position: 'bottomright' }).addTo(map);
+
+        // 地図の範囲外に移動した場合の処理
+        var tileBounds = L.latLngBounds([[34.0, 131.0], [35.0, 132.0]]);
+        map.on('moveend', function() {
+            if (!tileBounds.contains(map.getCenter())) {
+                map.setView(hagimeirinsya, 14);
+                L.marker(hagimeirinsya).addTo(map)
+                    .bindPopup("地図の範囲外に移動したため、萩・明倫学舎を中心に戻しました。").openPopup();
+            }
+        });
+
+        // 観光地にジャンプする関数
+        function jumpTo(coords, zoomLevel) {
+            map.setView(coords, zoomLevel);
+        }
+
+        // リストの表示・非表示を切り替える関数
+        function toggleLocationList() {
+            var list = document.getElementById('location-list');
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // ズームボタンを右上に移動
+        map.zoomControl.setPosition('topright');
+    </script>
+</body>
+</html>
