@@ -101,9 +101,9 @@
         });
 
         // 観光地にジャンプする関数
-        function jumpTo(coords, zoomLevel) {
-            map.setView(coords, zoomLevel);
-        }
+        function jumpTo(coords, zoomLevel, name) {
+            // 地図をスムーズに移動
+            map.flyTo(coords, zoomLevel);
 
         // リストの表示・非表示を切り替える関数
         function toggleLocationList() {
