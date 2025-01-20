@@ -5,7 +5,16 @@
 　　 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        #map { height: 100vh; } /* 地図を画面全体に表示 */
+        /* 地図を画面全体に表示 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map { 
+            height: 100%; 
+            width: 100%;
+        }
         #sidebar {
             position: absolute;
             top: 10px; /* 上から10px */
