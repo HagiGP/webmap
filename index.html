@@ -105,6 +105,11 @@
             // 地図をスムーズに移動
             map.flyTo(coords, zoomLevel);
 
+            // 観光地にマーカーを追加してポップアップを表示
+            L.marker(coords).addTo(map)
+                .bindPopup(name).openPopup();
+        }
+
         // リストの表示・非表示を切り替える関数
         function toggleLocationList() {
             var list = document.getElementById('location-list');
